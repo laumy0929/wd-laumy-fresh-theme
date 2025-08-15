@@ -42,35 +42,24 @@
 					}
 				}
 				if ($tree) {
-					echo '<ul class="toc-list">';
-					foreach ($tree as $n) {
-						echo '<li class="toc-item"><a class="toc-link" href="#'.$n['anchor'].'">'.esc_html($n['title']).'</a>';
-						if (!empty($n['children'])) {
-							echo '<ul class="toc-children">';
-							foreach ($n['children'] as $c) {
-								echo '<li class="toc-item"><a class="toc-link" href="#'.$c['anchor'].'">'.esc_html($c['title']).'</a>';
-								if (!empty($c['children'])) {
-									echo '<ul class="toc-children">';
-									foreach ($c['children'] as $d) {
-										echo '<li class="toc-item"><a class="toc-link" href="#'.$d['anchor'].'">'.esc_html($d['title']).'</a>';
-										if (!empty($d['children'])) {
-											echo '<ul class="toc-children">';
-											foreach ($d['children'] as $e) {
-												echo '<li class="toc-item"><a class="toc-link" href="#'.$e['anchor'].'">'.esc_html($e['title']).'</a></li>';
-											}
-											echo '</ul>';
-										}
-										echo '</li>';
-									}
-									echo '</ul>';
+					if (!function_exists('laumy_render_toc_nodes')) {
+						function laumy_render_toc_nodes($nodes, $prefix = '', $isRoot = true) {
+							echo $isRoot ? '<ul class="toc-list">' : '<ul class="toc-children">';
+							$idx = 1;
+							foreach ($nodes as $n) {
+								$number = $prefix === '' ? (string)$idx : $prefix . '.' . $idx;
+								echo '<li class="toc-item">';
+								echo '<a class="toc-link" href="#'.$n['anchor'].'"><span class="toc-num">'.$number.'.</span>'.esc_html($n['title']).'</a>';
+								if (!empty($n['children'])) {
+									laumy_render_toc_nodes($n['children'], $number, false);
 								}
 								echo '</li>';
+								$idx++;
 							}
 							echo '</ul>';
 						}
-						echo '</li>';
 					}
-					echo '</ul>';
+					laumy_render_toc_nodes($tree);
 				} else {
 					echo '<div class="card-body">暂无目录</div>';
 				}

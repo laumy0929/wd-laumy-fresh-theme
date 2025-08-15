@@ -363,3 +363,6 @@ body.dark .toc-link, body.dark .header-link { color: var(--color-text); }
 .toc-item > .toc-link.active { color: #e74c3c; font-weight: 700; }
 .toc-item > .toc-children { display: none; }
 .toc-item.expanded > .toc-children { display: block; }
+
+.toc-link .toc-num{ display:inline-block; min-width:1.6em; color:#999; margin-right:2px; }
+.toc-list > .toc-item > .toc-link .toc-num{ min-width:1.1em; margin-right:0; }
