@@ -372,3 +372,29 @@ body.dark .toc-link, body.dark .header-link { color: var(--color-text); }
 
 .toc-link .toc-num{ display:inline-block; min-width:1.6em; color:#999; margin-right:2px; }
 .toc-list > .toc-item > .toc-link .toc-num{ min-width:1.1em; margin-right:0; }
+
+/* Comments */
+.comments-area { margin-top: 18px; }
+.comments-wrap { margin-top: 12px; border-top: 1px solid var(--color-border); padding-top: 14px; }
+.comments-title { margin: 0 0 10px 0; font-size: 18px; font-weight: 700; }
+.comment-list { list-style: none; margin: 0; padding: 0; }
+.comment-list .children { list-style: none; margin-left: 24px; }
+.comment-body { border-bottom: 1px dashed var(--color-border); padding: 10px 0; }
+.comment-meta { font-size: 12px; color: var(--color-muted); margin-bottom: 6px; }
+.comment-content { font-size: 14px; }
+.comment-nav { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; }
+.comment-respond { margin-top: 12px; }
+.comment-respond input[type="text"],
+.comment-respond input[type="email"],
+.comment-respond input[type="url"],
+.comment-respond textarea { width: 100%; box-sizing: border-box; border: 1px solid var(--color-border); border-radius: 6px; padding: 8px 10px; background: #fff; color: var(--color-text); }
+.comment-respond .form-submit .submit, .comment-respond .button { background: var(--color-primary); color: #fff; border: none; border-radius: 6px; padding: 8px 14px; cursor: pointer; }
+.comment-respond .form-submit .submit:hover { opacity: 0.9; }
+body.dark .comment-respond input[type="text"],
+body.dark .comment-respond input[type="email"],
+body.dark .comment-respond input[type="url"],
+body.dark .comment-respond textarea { background: #202225; color: var(--color-text); border-color: var(--color-border); }
+
+/* Comment form inline fields */
+.comment-fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+#url, .comment-form-url { display: none !important; }

@@ -17,6 +17,9 @@ add_action('wp_enqueue_scripts', function () {
 	wp_localize_script('laumy-fresh-theme', 'LaumyFresh', [
 		'ajaxUrl' => admin_url('admin-ajax.php'),
 	]);
+	if ( is_singular() && comments_open() && get_option('thread_comments') ) {
+		wp_enqueue_script('comment-reply');
+	}
 });
 
 // Helper: get first image of content or fallback or featured

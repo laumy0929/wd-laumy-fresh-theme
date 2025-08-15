@@ -102,6 +102,9 @@
 				<div class="post-nav-prev"><?php previous_post_link('%link', '上一篇：%title'); ?></div>
 				<div class="post-nav-next"><?php next_post_link('%link', '下一篇：%title'); ?></div>
 			</nav>
+			<section class="comments-area">
+				<?php if ( comments_open() || get_comments_number() ) { comments_template(); } ?>
+			</section>
 		</article>
 	</section>
 
