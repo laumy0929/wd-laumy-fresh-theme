@@ -75,10 +75,10 @@
 					<span class="profile-job-badge"><?php echo esc_html(get_theme_mod('profile_job', '打工人')); ?></span>
 				</div>
 				<p class="profile-desc"><?php echo esc_html(get_theme_mod('profile_desc', '为学日益，为道日损')); ?></p>
-				<div class="profile-stats">
-					<div class="stat-item"><span class="stat-label">文章数</span><span class="stat-number"><?php echo $stats['posts_text']; ?></span></div>
-					<div class="stat-item"><span class="stat-label">阅读数</span><span class="stat-number"><?php echo $stats['posts_text']; ?></span></div>
-				</div>
+									<div class="profile-stats">
+						<div class="stat-item"><span class="stat-label">文章数</span><span class="stat-number"><?php echo $stats['posts_text']; ?></span></div>
+						<div class="stat-item"><span class="stat-label">阅读数</span><span class="stat-number"><?php echo $stats['views_text']; ?></span></div>
+					</div>
 			</div>
 		</div>
 		<div class="card">
