@@ -14,6 +14,7 @@
 
 		// Categories expand/collapse with state persistence
 		var categoryStates = {};
+		var categoryClickHandler;
 		
 		// 保存分类展开状态
 		function saveCategoryStates() {
@@ -34,7 +35,7 @@
 		}
 		
 		// 分类点击事件
-		document.addEventListener('click', function(e){
+		categoryClickHandler = function(e){
 			var header = e.target.closest('.category-header');
 			if(!header || e.target.closest('a')) return;
 			
@@ -44,7 +45,9 @@
 			var expanded = item.classList.toggle('expanded');
 			updateArrow(item, expanded);
 			saveCategoryStates();
-		});
+		};
+		
+		document.addEventListener('click', categoryClickHandler);
 		
 		// 页面加载时恢复状态
 		try {
@@ -63,6 +66,9 @@
 			var tocRoot = document.querySelector('.left-sidebar');
 			if(!tocRoot) return;
 
+			var tocArrows = [];
+			var scrollHandler;
+			
 			// add arrows and collapse ability
 			var tocItems = tocRoot.querySelectorAll('.toc-item');
 			tocItems.forEach(function(li){
@@ -74,11 +80,16 @@
 					arrow.className = 'toc-arrow';
 					arrow.setAttribute('aria-hidden','true');
 					arrow.textContent = '▸';
-					li.insertBefore(arrow, link);
-					arrow.addEventListener('click', function(ev){
+					
+					var arrowClickHandler = function(ev){
 						ev.preventDefault(); ev.stopPropagation();
 						li.classList.toggle('expanded');
-					});
+					};
+					
+					arrow.addEventListener('click', arrowClickHandler);
+					tocArrows.push({element: arrow, handler: arrowClickHandler});
+					
+					li.insertBefore(arrow, link);
 				}
 			});
 
@@ -107,7 +118,7 @@
 			}
 
 			var lastId = null;
-			function onScroll(){
+			scrollHandler = function(){
 				var pos = window.pageYOffset || document.documentElement.scrollTop;
 				var headerOffset = 80; // compensate fixed header
 				var current = null;
@@ -120,9 +131,26 @@
 					lastId = current.id;
 					setActive(lastId);
 				}
-			}
-			window.addEventListener('scroll', onScroll, {passive:true});
-			onScroll();
+			};
+			
+			window.addEventListener('scroll', scrollHandler, {passive:true});
+			scrollHandler();
+			
+			// 清理函数
+			return function cleanup() {
+				// 移除TOC箭头事件监听器
+				tocArrows.forEach(function(arrow) {
+					arrow.element.removeEventListener('click', arrow.handler);
+				});
+				// 移除滚动事件监听器
+				window.removeEventListener('scroll', scrollHandler, {passive:true});
+			};
 		})();
+		
+		// 页面卸载时清理事件监听器
+		window.addEventListener('beforeunload', function() {
+			// 移除分类点击事件
+			document.removeEventListener('click', categoryClickHandler);
+		});
 	});
 })();
