@@ -1,0 +1,357 @@
+/*
+Theme Name: Laumy Fresh Theme
+Theme URI: https://laumy.tech/
+Author: Laumy
+Author URI: https://laumy.tech/
+Description: 一个简洁、响应式的WordPress主题，具有固定顶部导航栏、左侧分类专栏、宽幅内容区域和右侧个人资料+最近更新。支持深色模式切换、文章目录、分类展开等功能。
+Version: 1.0.0
+Requires at least: 5.0
+Tested up to: 6.4
+Requires PHP: 7.4
+Text Domain: laumy-fresh-theme
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Tags: blog, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, accessibility-ready
+*/
+
+:root {
+	--header-height: 56px;
+	--sidebar-left-width: 260px;
+	--sidebar-right-width: 300px;
+	--container-max-width: 1800px;
+	--gap: 14px;
+	--color-bg: #ffffff;
+	--color-text: #222;
+	--color-muted: #666;
+	--color-primary: #3498db;
+	--color-border: #e6e6e6;
+	--toc-accent: #16a085;
+}
+
+html { background: var(--color-bg); }
+
+html, body {
+	margin: 0;
+	padding: 0;
+	background: var(--color-bg);
+	color: var(--color-text);
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+	line-height: 1.6;
+}
+
+/* Header */
+.site-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: var(--header-height);
+	z-index: 1000;
+	background: #fff;
+	border-bottom: 1px solid var(--color-border);
+}
+.admin-bar .site-header { top: 32px; }
+
+.header-inner {
+	max-width: min(var(--container-max-width), 98vw);
+	margin: 0 auto;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	gap: var(--gap);
+	padding: 0 10px;
+}
+.site-title a {
+	font-size: 20px;
+	font-weight: 700;
+	color: #333;
+	text-decoration: none;
+}
+.header-center { display: flex; justify-content: center; }
+.search-form { width: 100%; max-width: 640px; }
+.search-form input[type="search"] {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 8px 12px;
+	border: 1px solid var(--color-border);
+	border-radius: 6px;
+	outline: none;
+}
+.header-right { 
+	display: flex; 
+	align-items: center; 
+	gap: 12px; 
+	justify-content: flex-end; 
+	margin-right: 40px;
+}
+/* Theme toggle */
+.theme-toggle { width: auto; height: auto; border: 0; border-radius: 0; background: transparent; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
+.theme-toggle:focus { outline: none; }
+.theme-toggle .toggle-icon { width: 20px; height: 20px; background: none; display: inline-block; background-repeat: no-repeat; background-position: center; background-size: contain; }
+/* Light: sun (stroke only, hollow center) */
+.theme-toggle .toggle-icon { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke="%23000" stroke-width="2" fill="none" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></g></svg>'); }
+/* Dark: moon outline */
+body.dark .theme-toggle .toggle-icon { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="%23fff" stroke-width="2" fill="none"/></svg>'); }
+.header-link { color: #333; text-decoration: none; }
+body.dark .header-link { color: var(--color-text); }
+
+/* Layout */
+.main-container {
+	max-width: min(var(--container-max-width), 98vw);
+	margin: 0 auto 18px;
+	padding: calc(var(--header-height) + 16px) 10px 0 10px;
+	display: grid;
+	grid-template-columns: var(--sidebar-left-width) 1fr var(--sidebar-right-width);
+	gap: var(--gap);
+}
+
+/* Section headers visibility */
+.categories-title, .posts-header, .card-header { color: var(--color-text); }
+
+/* adjust when logged-in admin bar exists */
+.admin-bar .main-container { padding-top: calc(var(--header-height) + 32px); }
+
+/* sticky offsets closer to header */
+.left-sidebar { position: sticky; top: calc(var(--header-height) + 20px); max-height: calc(100vh - var(--header-height) - 48px); overflow: auto; z-index: 2; }
+.right-sidebar { position: sticky; top: calc(var(--header-height) + 20px); z-index: 2; max-height: none; overflow: visible; }
+.admin-bar .left-sidebar, .admin-bar .right-sidebar { top: calc(var(--header-height) + 52px); }
+
+.content-area { align-self: start; min-width: 0; }
+
+/* Categories Sidebar */
+.categories-card {
+	background: #fff;
+	border: 1px solid var(--color-border);
+	border-radius: 10px;
+	padding: 12px 0;
+}
+.categories-title {
+	display: flex; align-items: center; justify-content: space-between;
+	padding: 0 16px 8px 16px;
+	border-bottom: 2px solid #eaf7f1;
+	margin-bottom: 8px;
+	position: relative;
+}
+.categories-title::before { 
+	content: "📁"; 
+	font-size: 20px; 
+	position: absolute;
+	left: 16px;
+}
+.categories-title .text { 
+	font-weight: 700; 
+	font-size: 18px; 
+	margin-left: 32px;
+}
+.categories-list { list-style: none; margin: 0; padding: 0; }
+.category-item { border-left: 2px solid transparent; }
+.category-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 16px; cursor: pointer; }
+.category-header:hover { background: #fafafa; }
+.category-link { color: #222; text-decoration: none; flex: 1; }
+.category-toggle { color: #888; font-size: 12px; }
+.subcategory-list { display: none; padding: 4px 0 8px 24px; }
+.category-item.expanded > .subcategory-list { display: block; }
+.subcategory-list a { display: block; padding: 6px 0; color: #444; text-decoration: none; }
+
+/* Category counts */
+.category-count, .subcategory-count {
+	background: #f3f5f7;
+	color: #666;
+	border-radius: 999px;
+	padding: 2px 8px;
+	font-size: 12px;
+	margin-left: 8px;
+}
+.category-header { cursor: pointer; }
+.category-header .category-link { cursor: pointer; }
+
+/* Posts list */
+.posts-card { background: #fff; border: 1px solid var(--color-border); border-radius: 10px; }
+.posts-header { padding: 12px 16px; border-bottom: 1px solid var(--color-border); font-weight: 700; }
+.posts-list { margin: 0; padding: 4px 10px; list-style: none; }
+.post-item { display: grid; grid-template-columns: 160px minmax(0, 1fr); align-items: start; column-gap: 18px; row-gap: 4px; padding: 10px 0; border-bottom: 1px dashed #eee; }
+.post-item > a { display: block; grid-row: 1 / span 3; }
+.post-thumb { width: 160px; height: 100px; object-fit: cover; display: block; }
+.post-item > div { min-width: 0; }
+.post-title { margin: 0 0 6px 0; font-size: 18px; line-height: 1.35; }
+.post-title a { text-decoration: none; }
+.post-excerpt { margin: 0 0 6px 0; color: var(--color-muted); width: 100%; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; text-overflow: ellipsis; white-space: normal; word-break: break-word; line-height: 1.6; max-height: calc(1.6em * 2); }
+.post-meta { 
+	font-size: 12px; 
+	color: var(--color-muted); 
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.meta-item {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.meta-icon {
+	font-size: 14px;
+	opacity: 0.8;
+}
+
+/* Right sidebar */
+.card { background: #fff; border: 1px solid var(--color-border); border-radius: 10px; margin-bottom: 16px; }
+.card-header { padding: 12px 16px; border-bottom: 1px solid var(--color-border); font-weight: 700; }
+.card-body { padding: 12px 16px; }
+.profile-avatar { width: 100%; max-width: 320px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; border: 1px solid var(--color-border); background: #fafafa; }
+.profile-name { margin: 12px 0 4px 0; font-size: 20px; font-weight: 700; }
+.profile-occupation { margin: 0 0 8px 0; color: var(--color-muted); }
+.profile-desc { margin: 0; color: #444; }
+
+.recent-list { list-style: none; margin: 0; padding: 0; }
+.recent-item { display: grid; grid-template-columns: 84px 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px dashed #eee; }
+.recent-thumb { width: 84px; height: 58px; object-fit: cover; border-radius: 4px; border: 1px solid var(--color-border); background: #fafafa; }
+.recent-title { margin: 0; font-size: 14px; }
+.recent-title a { text-decoration: none; }
+.recent-date { font-size: 12px; color: var(--color-muted); }
+
+/* Pagination */
+.pagination { padding: 12px 16px 16px 16px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; }
+.pagination a, .pagination span { padding: 6px 10px; border: 1px solid var(--color-border); border-radius: 6px; text-decoration: none; color: #333; }
+.pagination .current { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+
+/* Single page */
+.toc-card { background: #fff; border: 1px solid var(--color-border); border-radius: 10px; }
+.toc-header { 
+	display: flex; 
+	align-items: center; 
+	justify-content: space-between; 
+	padding: 10px 16px; 
+	border-bottom: 1px solid var(--color-border); 
+	position: relative; 
+}
+.toc-header::before { 
+	content: "📋"; 
+	font-size: 18px; 
+	position: absolute; 
+	left: 16px; 
+}
+.toc-header .text { 
+	margin: 0 0 0 32px; 
+	font-size: 16px; 
+	font-weight: 700; 
+}
+.toc-list, .toc-children { list-style: none; margin: 8px 0 12px 0; padding: 0 16px; }
+.toc-item { margin: 4px 0; }
+.toc-link { text-decoration: none; color: #333; }
+
+/* 多级目录样式 */
+.toc-children { margin-left: 12px; border-left: 2px solid #f2f2f2; padding-left: 10px; }
+.toc-children .toc-children { margin-left: 8px; border-left: 1px solid #e0e0e0; padding-left: 8px; }
+.toc-children .toc-children .toc-children { margin-left: 6px; border-left: 1px solid #d0d0d0; padding-left: 6px; }
+.toc-children .toc-children .toc-children .toc-children { margin-left: 4px; border-left: 1px solid #c0c0c0; padding-left: 4px; }
+
+.single-article { background: #fff; border: 1px solid var(--color-border); border-radius: 10px; padding: 16px; }
+.single-title { margin-top: 0; }
+.single-title a { text-decoration: none; }
+
+/* 文章内容页面的元数据样式 */
+.single-meta { 
+	font-size: 14px; 
+	color: var(--color-muted); 
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+	margin-bottom: 16px;
+	padding: 8px 0;
+}
+
+.single-meta .meta-item {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.single-meta .meta-icon {
+	font-size: 16px;
+	opacity: 0.8;
+}
+.single-article, .single-article * { box-sizing: border-box; }
+.single-article img { max-width: 100%; height: auto; }
+.single-article table { max-width: 100%; display: block; overflow: auto; border-collapse: collapse; }
+.single-article pre, .single-article code { max-width: 100%; display: block; overflow: auto; }
+.single-article p, .single-article li { word-wrap: break-word; overflow-wrap: break-word; }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--color-border); padding: 16px; text-align: center; color: var(--color-muted); }
+.site-footer a { color: var(--color-primary); text-decoration: none; }
+
+/* Dark mode */
+body.dark { --color-bg: #181a1b; --color-text: #eceff1; --color-muted: #b8c1c8; --color-border: #2e3439; background: var(--color-bg); color: var(--color-text); }
+body.dark .site-header { background: #1f2224; border-color: var(--color-border); }
+body.dark .card, body.dark .posts-card, body.dark .categories-card, body.dark .toc-card, body.dark .single-article { background: #202225; border-color: var(--color-border); }
+body.dark .search-form input[type="search"] { background: #202225; color: var(--color-text); border-color: var(--color-border); }
+body.dark .search-form input[type="search"]::placeholder { color: var(--color-muted); }
+body.dark .categories-title { border-bottom-color: var(--color-border); }
+body.dark .category-link { color: var(--color-text); }
+body.dark .subcategory-list a { color: var(--color-muted); }
+body.dark .recent-title a { color: var(--color-text); }
+body.dark .toc-link, body.dark .header-link { color: var(--color-text); }
+
+/* Responsive */
+@media (max-width: 1200px) {
+	:root { --sidebar-left-width: 200px; --sidebar-right-width: 220px; }
+}
+@media (max-width: 992px) {
+	.main-container { grid-template-columns: 1fr; }
+	.left-sidebar, .right-sidebar { position: static; }
+}
+@media (max-width: 768px) {
+	/* 移动设备：隐藏标题和导航链接，只保留搜索框和背景切换 */
+	.site-title { display: none; }
+	.header-link { display: none; }
+	
+	/* 调整header布局为居中布局 */
+	.header-inner {
+		grid-template-columns: 1fr;
+		justify-items: center;
+	}
+	
+	/* 搜索框居中显示 */
+	.header-center {
+		grid-column: 1;
+		justify-self: center;
+	}
+	
+	/* 背景切换按钮移到搜索框右侧 */
+	.header-right {
+		position: absolute;
+		right: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+.left-sidebar { min-width: var(--sidebar-left-width); }
+.right-sidebar { min-width: var(--sidebar-right-width); }
+
+/* prevent sticky sidebars overlap on very tall content */
+.left-sidebar { max-height: calc(100vh - var(--header-height) - 48px); overflow: auto; }
+.right-sidebar { position: sticky; top: calc(var(--header-height) + 16px); z-index: 2; max-height: none; overflow: visible; }
+.right-sidebar .card { background: #fff; }
+
+/* Profile card */
+.profile-card .card-body { text-align: center; }
+/* Center name alone */
+.profile-name-wrap { display: inline-block; position: relative; text-align: center; }
+/* Name visual */
+.profile-name { font-size: 28px; font-weight: 800; line-height: 1.2; }
+/* Badge positioned to the right of the name; it doesn't affect centering */
+.profile-job-badge { position: absolute; left: 100%; margin-left: 8px; top: -6px; background: #2ecc71; color: #fff; border-radius: 999px; padding: 0 7px; font-size: 10px; white-space: nowrap; }
+.profile-desc { margin-top: 6px; }
+.profile-stats { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.stat-item { background: transparent; border: 0; box-shadow: none; padding: 8px 6px; }
+.stat-label { display: block; font-size: 12px; color: var(--color-muted); }
+.stat-number { display: block; font-size: 18px; font-weight: 700; margin-top: 4px; }
+
+/* Hide profile card header */
+.profile-card .card-header { display: none; }
