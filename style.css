@@ -355,3 +355,11 @@ body.dark .toc-link, body.dark .header-link { color: var(--color-text); }
 
 /* Hide profile card header */
 .profile-card .card-header { display: none; }
+
+/* TOC collapse and highlight */
+.toc-item { position: relative; padding-left: 16px; }
+.toc-item.has-children > .toc-arrow { position: absolute; left: 0; top: 0.55em; width: 12px; height: 12px; line-height: 12px; cursor: pointer; color: #666; }
+.toc-item.has-children.expanded > .toc-arrow { transform: rotate(90deg); }
+.toc-item > .toc-link.active { color: #e74c3c; font-weight: 700; }
+.toc-item > .toc-children { display: none; }
+.toc-item.expanded > .toc-children { display: block; }
