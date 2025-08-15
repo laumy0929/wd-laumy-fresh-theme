@@ -12,15 +12,51 @@
 			try { if(localStorage.getItem('laumy_dark')==='1'){ document.body.classList.add('dark'); } } catch(e){}
 		}
 
-		// Categories expand
+		// Categories expand/collapse with state persistence
+		var categoryStates = {};
+		
+		// 保存分类展开状态
+		function saveCategoryStates() {
+			var states = {};
+			document.querySelectorAll('.category-item').forEach(function(item) {
+				var categoryName = item.querySelector('.category-link').textContent.trim();
+				states[categoryName] = item.classList.contains('expanded');
+			});
+			try { localStorage.setItem('laumy_category_states', JSON.stringify(states)); } catch(e){}
+		}
+		
+		// 更新箭头方向
+		function updateArrow(item, expanded) {
+			var arrow = item.querySelector('.category-arrow');
+			if(arrow) {
+				arrow.textContent = expanded ? '▼' : '▶';
+			}
+		}
+		
+		// 分类点击事件
 		document.addEventListener('click', function(e){
 			var header = e.target.closest('.category-header');
-			if(!header) return;
+			if(!header || e.target.closest('a')) return;
+			
 			var item = header.closest('.category-item');
 			if(!item) return;
-			if(header.querySelector('a') && e.target.closest('a')){ return; }
-			item.classList.toggle('expanded');
+			
+			var expanded = item.classList.toggle('expanded');
+			updateArrow(item, expanded);
+			saveCategoryStates();
 		});
+		
+		// 页面加载时恢复状态
+		try {
+			var states = JSON.parse(localStorage.getItem('laumy_category_states') || '{}');
+			document.querySelectorAll('.category-item').forEach(function(item) {
+				var categoryName = item.querySelector('.category-link').textContent.trim();
+				if (states[categoryName]) {
+					item.classList.add('expanded');
+					updateArrow(item, true);
+				}
+			});
+		} catch(e) {}
 
 		// ===== TOC collapse + scroll spy =====
 		(function initTOC(){

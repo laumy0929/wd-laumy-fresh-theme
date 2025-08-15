@@ -402,3 +402,120 @@ body.dark .comment-respond textarea { background: #202225; color: var(--color-te
 
 /* Simple code block background */
 .single-article pre { background-color: #f7f7f7 !important; }
+
+/* Categories */
+.categories-card {
+	background: var(--card-bg);
+	border-radius: var(--border-radius);
+	padding: 20px;
+	box-shadow: var(--shadow);
+}
+
+.categories-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	font-weight: 600;
+	font-size: 18px;
+	color: var(--text-primary);
+}
+
+.category-toggle {
+	font-size: 18px;
+	color: #666;
+	cursor: pointer;
+}
+
+.categories-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.category-item {
+	margin-bottom: 8px;
+}
+
+.category-header {
+	display: flex;
+	align-items: center;
+	padding: 6px 12px;
+	border-radius: var(--border-radius);
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.category-header:hover {
+	background: var(--hover-bg);
+}
+
+.category-arrow {
+	color: var(--text-secondary);
+	font-size: 8px;
+	margin-right: 4px;
+	transition: transform 0.2s;
+	width: 8px;
+	text-align: center;
+}
+
+.category-link {
+	color: var(--text-primary);
+	text-decoration: none;
+	font-weight: 500;
+	flex: 1;
+}
+
+/* 父分类和子分类的文章数量统一样式 */
+.category-count,
+.subcategory-count {
+	color: var(--color-muted);
+	font-size: 12px;
+	font-weight: 400;
+	margin-left: 8px;
+	white-space: nowrap;
+}
+
+.subcategory-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease;
+	border-left: 2px solid var(--color-border);
+	margin-left: 20px;
+}
+
+.category-item.expanded .subcategory-list {
+	max-height: 500px;
+}
+
+.subcategory-list li {
+	padding: 4px 12px 4px 20px;
+	position: relative;
+}
+
+.subcategory-list li:before {
+	content: '';
+	position: absolute;
+	left: -2px;
+	top: 50%;
+	width: 8px;
+	height: 2px;
+	background: var(--color-border);
+	transform: translateY(-50%);
+}
+
+.subcategory-list a {
+	color: var(--text-secondary);
+	text-decoration: none;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.subcategory-list a:hover {
+	color: var(--text-primary);
+}

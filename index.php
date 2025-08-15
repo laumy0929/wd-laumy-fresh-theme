@@ -12,6 +12,11 @@
 				<?php foreach ($cats as $cat): ?>
 					<li class="category-item">
 						<div class="category-header">
+							<?php if (!empty($cat['children'])): ?>
+							<span class="category-arrow">▶</span>
+							<?php else: ?>
+							<span class="category-arrow" style="visibility: hidden;">▶</span>
+							<?php endif; ?>
 							<a class="category-link" href="<?php echo esc_url($cat['url']); ?>"><?php echo esc_html($cat['title']); ?></a>
 							<span class="category-count"><?php echo laumy_fresh_category_count($cat['id'], true); ?>篇</span>
 						</div>
