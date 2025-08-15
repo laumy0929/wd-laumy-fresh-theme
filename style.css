@@ -1,8 +1,9 @@
 /*
 Theme Name: Laumy Fresh Theme
-Theme URI: https://laumy.tech/
+Theme URI: https://www.laumy.tech/
 Author: Laumy
-Author URI: https://laumy.tech/
+Author URI: https://www.laumy.tech/
+Email: laumy0929@gmail.com
 Description: 一个简洁、响应式的WordPress主题，具有固定顶部导航栏、左侧分类专栏、宽幅内容区域和右侧个人资料+最近更新。支持深色模式切换、文章目录、分类展开等功能。
 Version: 1.0.0
 Requires at least: 5.0
@@ -398,3 +399,6 @@ body.dark .comment-respond textarea { background: #202225; color: var(--color-te
 /* Comment form inline fields */
 .comment-fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 #url, .comment-form-url { display: none !important; }
+
+/* Simple code block background */
+.single-article pre { background-color: #f7f7f7 !important; }
