@@ -281,6 +281,12 @@ body.dark .header-link { color: var(--color-text); }
 .single-article pre, .single-article code { max-width: 100%; display: block; overflow: auto; }
 .single-article p, .single-article li { word-wrap: break-word; overflow-wrap: break-word; }
 
+/* Previous/Next post navigation */
+.post-nav { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--color-border); display: flex; justify-content: space-between; gap: 12px; }
+.post-nav-prev, .post-nav-next { max-width: 48%; }
+.post-nav a { color: var(--color-primary); text-decoration: none; word-break: break-word; }
+.post-nav a:hover { text-decoration: underline; }
+
 /* Footer */
 .site-footer { border-top: 1px solid var(--color-border); padding: 16px; text-align: center; color: var(--color-muted); }
 .site-footer a { color: var(--color-primary); text-decoration: none; }

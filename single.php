@@ -98,6 +98,10 @@
 				echo apply_filters('the_content', $raw);
 				?>
 			</div>
+			<nav class="post-nav">
+				<div class="post-nav-prev"><?php previous_post_link('%link', '上一篇：%title'); ?></div>
+				<div class="post-nav-next"><?php next_post_link('%link', '下一篇：%title'); ?></div>
+			</nav>
 		</article>
 	</section>
 
