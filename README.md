@@ -1,6 +1,6 @@
 # Laumy Fresh Theme
 
-一个简洁、响应式的WordPress主题，专为技术博客和内容网站设计。
+一个简洁、响应式的WordPress主题，专为技术博客和内容网站设计。站点示例：https://www.laumy.tech/
 
 ## 🚀 快速开始
 
