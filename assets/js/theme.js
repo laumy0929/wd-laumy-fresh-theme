@@ -147,6 +147,19 @@
 			};
 		})();
 
+		// ===== Back to top (minimal) =====
+		(function initBackToTop(){
+			var btn = document.querySelector('.back-to-top');
+			if(!btn) return;
+			function toggle(){
+				var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+				if(y > 400){ btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+			}
+			btn.addEventListener('click', function(e){ e.preventDefault(); window.scrollTo({top:0, behavior:'smooth'}); });
+			window.addEventListener('scroll', toggle, {passive:true});
+			toggle();
+		})();
+
 		// ===== Reading progress bar =====
 		(function initReadingProgress(){
 			var bar = document.querySelector('.reading-progress-bar');
