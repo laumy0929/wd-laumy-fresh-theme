@@ -351,7 +351,7 @@ body.dark .header-link { color: var(--color-text); }
 
 /* Footer */
 .site-footer { border-top: 1px solid var(--color-border); padding: 16px; text-align: center; color: var(--color-muted); }
-.site-footer a { color: var(--color-primary); text-decoration: none; }
+.site-footer a { color: var(--color-muted); text-decoration: none; }
 
 /* Dark mode */
 body.dark { --color-bg: #181a1b; --color-text: #eceff1; --color-muted: #b8c1c8; --color-border: #2e3439; background: var(--color-bg); color: var(--color-text); }
