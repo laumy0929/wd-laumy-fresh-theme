@@ -333,7 +333,13 @@ body.dark .header-link { color: var(--color-text); }
 	opacity: 0.8;
 }
 .single-article, .single-article * { box-sizing: border-box; }
-.single-article img { max-width: 100%; height: auto; }
+.single-article img {
+	max-width: 50%;
+	height: auto;
+	display: block;
+	margin: 1rem auto;
+	border-radius: 6px;
+}
 .single-article table { max-width: 100%; display: block; overflow: auto; border-collapse: collapse; }
 .single-article pre, .single-article code { max-width: 100%; display: block; overflow: auto; }
 .single-article p, .single-article li { word-wrap: break-word; overflow-wrap: break-word; }
