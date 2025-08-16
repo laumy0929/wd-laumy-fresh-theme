@@ -67,6 +67,10 @@
 								<span class="meta-icon">👤</span>
 								<?php echo esc_html(get_the_author()); ?>
 							</span>
+							<span class="meta-item">
+								<span class="meta-icon heat-icon">🔥</span>
+								<span class="heat-count"><?php echo laumy_fresh_get_post_heat(); ?> 热度</span>
+							</span>
 						</div>
 					</div>
 				</li>

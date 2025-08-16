@@ -217,6 +217,48 @@ body.dark .header-link { color: var(--color-text); }
 	opacity: 0.8;
 }
 
+/* 热度显示样式 - 纯色设计 */
+.meta-item .heat-icon {
+	color: var(--color-muted);
+	font-size: 14px;
+	opacity: 0.8;
+}
+
+.meta-item .heat-count {
+	color: var(--color-muted);
+	font-size: 12px;
+}
+
+/* 作者图标样式 - 简洁的人形轮廓 */
+.meta-item .author-icon {
+	position: relative;
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+}
+
+.meta-item .author-icon::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 14px;
+	height: 14px;
+	background: var(--color-muted);
+	border-radius: 50% 50% 0 0;
+}
+
+.meta-item .author-icon::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 2px;
+	width: 10px;
+	height: 8px;
+	background: var(--color-muted);
+	border-radius: 0 0 5px 5px;
+}
+
 /* Right sidebar */
 .card { background: #fff; border: 1px solid var(--color-border); border-radius: 10px; margin-bottom: 16px; }
 .card-header { padding: 12px 16px; border-bottom: 1px solid var(--color-border); font-weight: 700; }
@@ -395,10 +437,7 @@ body.dark .site-title a::after {
 .left-sidebar { min-width: var(--sidebar-left-width); }
 .right-sidebar { min-width: var(--sidebar-right-width); }
 
-/* prevent sticky sidebars overlap on very tall content */
-.left-sidebar { max-height: calc(100vh - var(--header-height) - 48px); overflow: auto; }
-.right-sidebar { position: sticky; top: calc(var(--header-height) + 16px); z-index: 2; max-height: none; overflow: visible; }
-.right-sidebar .card { background: #fff; }
+
 
 /* Profile card */
 .profile-card .card-body { text-align: center; }
@@ -457,55 +496,9 @@ body.dark .comment-respond textarea { background: #202225; color: var(--color-te
 /* Simple code block background */
 .single-article pre { background-color: #f7f7f7 !important; }
 
-/* Categories */
-.categories-card {
-	background: var(--card-bg);
-	border-radius: var(--border-radius);
-	padding: 20px;
-	box-shadow: var(--shadow);
-}
-
-.categories-title {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
-	font-weight: 600;
-	font-size: 18px;
-	color: var(--text-primary);
-}
-
-.category-toggle {
-	font-size: 18px;
-	color: #666;
-	cursor: pointer;
-}
-
-.categories-list {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-.category-item {
-	margin-bottom: 8px;
-}
-
-.category-header {
-	display: flex;
-	align-items: center;
-	padding: 6px 12px;
-	border-radius: var(--border-radius);
-	cursor: pointer;
-	transition: background-color 0.2s;
-}
-
-.category-header:hover {
-	background: var(--hover-bg);
-}
-
+/* 分类展开/收起图标样式 */
 .category-arrow {
-	color: var(--text-secondary);
+	color: #666;
 	font-size: 8px;
 	margin-right: 4px;
 	transition: transform 0.2s;
@@ -513,23 +506,11 @@ body.dark .comment-respond textarea { background: #202225; color: var(--color-te
 	text-align: center;
 }
 
-.category-link {
-	color: var(--text-primary);
-	text-decoration: none;
-	font-weight: 500;
-	flex: 1;
+.category-item.expanded .category-arrow {
+	transform: rotate(90deg);
 }
 
-/* 父分类和子分类的文章数量统一样式 */
-.category-count,
-.subcategory-count {
-	color: var(--color-muted);
-	font-size: 12px;
-	font-weight: 400;
-	margin-left: 8px;
-	white-space: nowrap;
-}
-
+/* 子分类缩进和左边框样式 */
 .subcategory-list {
 	list-style: none;
 	padding: 0;
@@ -562,7 +543,7 @@ body.dark .comment-respond textarea { background: #202225; color: var(--color-te
 }
 
 .subcategory-list a {
-	color: var(--text-secondary);
+	color: var(--color-muted);
 	text-decoration: none;
 	font-size: 14px;
 	display: flex;
@@ -571,5 +552,5 @@ body.dark .comment-respond textarea { background: #202225; color: var(--color-te
 }
 
 .subcategory-list a:hover {
-	color: var(--text-primary);
+	color: var(--color-text);
 }
