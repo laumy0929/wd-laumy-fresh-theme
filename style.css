@@ -26,10 +26,7 @@ Tags: blog, custom-background, custom-colors, custom-logo, custom-menu, editor-s
 	--color-muted: #666;
 	--color-primary: #3498db;
 	--color-border: #e6e6e6;
-	--toc-accent: #16a085;
 }
-
-html { background: var(--color-bg); }
 
 html, body {
 	margin: 0;
@@ -139,13 +136,21 @@ body.dark .header-link { color: var(--color-text); }
 
 .content-area { align-self: start; min-width: 0; }
 
-/* Categories Sidebar */
-.categories-card {
+/* 通用卡片样式 */
+.categories-card,
+.posts-card,
+.card,
+.toc-card,
+.single-article {
 	background: #fff;
 	border: 1px solid var(--color-border);
 	border-radius: 10px;
-	padding: 12px 0;
 }
+
+/* 特定卡片样式 */
+.categories-card { padding: 12px 0; }
+.card { margin-bottom: 16px; }
+.single-article { padding: 16px; }
 .categories-title {
 	display: flex; align-items: center; justify-content: space-between;
 	padding: 0 16px 8px 16px;
@@ -183,11 +188,9 @@ body.dark .header-link { color: var(--color-text); }
 	font-size: 12px;
 	margin-left: 8px;
 }
-.category-header { cursor: pointer; }
-.category-header .category-link { cursor: pointer; }
 
-/* Posts list */
-.posts-card { background: #fff; border: 1px solid var(--color-border); border-radius: 10px; }
+
+
 .posts-header { padding: 12px 16px; border-bottom: 1px solid var(--color-border); font-weight: 700; }
 .posts-list { margin: 0; padding: 4px 10px; list-style: none; }
 .post-item { display: grid; grid-template-columns: 160px minmax(0, 1fr); align-items: start; column-gap: 18px; row-gap: 4px; padding: 10px 0; border-bottom: 1px dashed #eee; }
@@ -212,14 +215,8 @@ body.dark .header-link { color: var(--color-text); }
 	gap: 4px;
 }
 
-.meta-icon {
-	font-size: 14px;
-	opacity: 0.8;
-}
-
-/* 热度显示样式 - 纯色设计 */
+.meta-icon,
 .meta-item .heat-icon {
-	color: var(--color-muted);
 	font-size: 14px;
 	opacity: 0.8;
 }
@@ -259,8 +256,7 @@ body.dark .header-link { color: var(--color-text); }
 	border-radius: 0 0 5px 5px;
 }
 
-/* Right sidebar */
-.card { background: #fff; border: 1px solid var(--color-border); border-radius: 10px; margin-bottom: 16px; }
+
 .card-header { padding: 12px 16px; border-bottom: 1px solid var(--color-border); font-weight: 700; }
 .card-body { padding: 12px 16px; }
 .profile-avatar { width: 100%; max-width: 320px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; border: 1px solid var(--color-border); background: #fafafa; }
@@ -280,8 +276,7 @@ body.dark .header-link { color: var(--color-text); }
 .pagination a, .pagination span { padding: 6px 10px; border: 1px solid var(--color-border); border-radius: 6px; text-decoration: none; color: #333; }
 .pagination .current { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 
-/* Single page */
-.toc-card { background: #fff; border: 1px solid var(--color-border); border-radius: 10px; }
+
 .toc-header { 
 	display: flex; 
 	align-items: center; 
@@ -311,7 +306,7 @@ body.dark .header-link { color: var(--color-text); }
 .toc-children .toc-children .toc-children { margin-left: 6px; border-left: 1px solid #d0d0d0; padding-left: 6px; }
 .toc-children .toc-children .toc-children .toc-children { margin-left: 4px; border-left: 1px solid #c0c0c0; padding-left: 4px; }
 
-.single-article { background: #fff; border: 1px solid var(--color-border); border-radius: 10px; padding: 16px; }
+
 .single-title { margin-top: 0; }
 .single-title a { text-decoration: none; }
 
@@ -354,31 +349,31 @@ body.dark .header-link { color: var(--color-text); }
 .site-footer a { color: var(--color-muted); text-decoration: none; }
 
 /* Dark mode */
-body.dark { --color-bg: #181a1b; --color-text: #eceff1; --color-muted: #b8c1c8; --color-border: #2e3439; background: var(--color-bg); color: var(--color-text); }
+body.dark { 
+	--color-bg: #181a1b; 
+	--color-text: #eceff1; 
+	--color-muted: #b8c1c8; 
+	--color-border: #2e3439; 
+	background: var(--color-bg); 
+	color: var(--color-text); 
+}
+
 body.dark .site-header { background: #1f2224; border-color: var(--color-border); }
-body.dark .card, body.dark .posts-card, body.dark .categories-card, body.dark .toc-card, body.dark .single-article { background: #202225; border-color: var(--color-border); }
+body.dark .categories-card,
+body.dark .posts-card,
+body.dark .card,
+body.dark .toc-card,
+body.dark .single-article { background: #202225; border-color: var(--color-border); }
 body.dark .search-form input[type="search"] { background: #202225; color: var(--color-text); border-color: var(--color-border); }
 body.dark .search-form input[type="search"]::placeholder { color: var(--color-muted); }
 body.dark .categories-title { border-bottom-color: var(--color-border); }
 body.dark .category-link { color: var(--color-text); }
 body.dark .subcategory-list a { color: var(--color-muted); }
 body.dark .recent-title a { color: var(--color-text); }
-body.dark .toc-link, body.dark .header-link { color: var(--color-text); }
+body.dark .toc-link, 
+body.dark .header-link { color: var(--color-text); }
 
-/* 深色模式下的网站标题样式 */
-body.dark .site-title a {
-	color: #4fc3f7;
-	text-shadow: 0 1px 2px rgba(79, 195, 247, 0.2);
-}
 
-body.dark .site-title a:hover {
-	color: #29b6f6;
-	text-shadow: 0 2px 4px rgba(79, 195, 247, 0.3);
-}
-
-body.dark .site-title a::after {
-	background: linear-gradient(90deg, #4fc3f7, #81d4fa);
-}
 
 /* Responsive */
 @media (max-width: 1200px) {
@@ -434,8 +429,7 @@ body.dark .site-title a::after {
 	}
 }
 
-.left-sidebar { min-width: var(--sidebar-left-width); }
-.right-sidebar { min-width: var(--sidebar-right-width); }
+
 
 
 
