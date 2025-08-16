@@ -146,6 +146,47 @@
 				window.removeEventListener('scroll', scrollHandler, {passive:true});
 			};
 		})();
+
+		// ===== Reading progress bar =====
+		(function initReadingProgress(){
+			var bar = document.querySelector('.reading-progress-bar');
+			if(!bar) return;
+
+			function getScrollable(){
+				var body = document.body;
+				var html = document.documentElement;
+				var height = Math.max(
+					body.scrollHeight, html.scrollHeight,
+					body.offsetHeight, html.offsetHeight,
+					html.clientHeight
+				);
+				var viewport = window.innerHeight || html.clientHeight;
+				var scrollTop = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
+				var header = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 0;
+				var adminBar = document.body.classList.contains('admin-bar') ? 32 : 0;
+				var offset = header + adminBar;
+				var contentHeight = Math.max(0, height - offset - viewport);
+				return {scrollTop: Math.max(0, scrollTop - offset), contentHeight: contentHeight};
+			}
+
+			function update(){
+				var s = getScrollable();
+				var ratio = s.contentHeight > 0 ? Math.min(1, Math.max(0, s.scrollTop / s.contentHeight)) : 0;
+				bar.style.transform = 'scaleX(' + ratio + ')';
+			}
+
+			var ticking = false;
+			function onScroll(){
+				if(!ticking){
+					window.requestAnimationFrame(function(){ ticking = false; update(); });
+					ticking = true;
+				}
+			}
+
+			window.addEventListener('scroll', onScroll, {passive:true});
+			window.addEventListener('resize', onScroll);
+			update();
+		})();
 		
 		// 页面卸载时清理事件监听器
 		window.addEventListener('beforeunload', function() {

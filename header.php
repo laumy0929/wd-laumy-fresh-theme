@@ -26,3 +26,6 @@
 		</div>
 	</div>
 </header>
+	<div class="reading-progress" aria-hidden="true">
+		<div class="reading-progress-bar"></div>
+	</div>
