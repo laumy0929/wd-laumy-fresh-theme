@@ -112,6 +112,103 @@
 		</article>
 	</section>
 
+	<!-- 图片查看器 -->
+	<script>
+	(function() {
+		// 状态管理
+		let scale = 1, x = 0, y = 0, isDragging = false, startX, startY;
+		
+		// 创建查看器DOM
+		const viewer = document.createElement('div');
+		viewer.className = 'img-viewer';
+		viewer.innerHTML = `
+			<div class="img-viewer-bg"></div>
+			<div class="img-viewer-content">
+				<img class="img-viewer-img" src="" alt="">
+				<button class="img-viewer-close">&times;</button>
+			</div>
+		`;
+		document.body.appendChild(viewer);
+		
+		// 核心函数
+		function updateTransform() {
+			const img = viewer.querySelector('.img-viewer-img');
+			if (img) img.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+		}
+		
+		function reset() {
+			scale = 1; x = 0; y = 0;
+			updateTransform();
+		}
+		
+		function open(src, alt) {
+			viewer.querySelector('.img-viewer-img').src = src;
+			viewer.querySelector('.img-viewer-img').alt = alt || '图片';
+			viewer.classList.add('active');
+			document.body.style.overflow = 'hidden';
+			reset();
+		}
+		
+		function close() {
+			viewer.classList.remove('active');
+			document.body.style.overflow = '';
+		}
+		
+		// 事件监听
+		document.addEventListener('click', e => {
+			if (e.target.matches('.single-article img')) {
+				e.preventDefault();
+				open(e.target.src, e.target.alt);
+			}
+		});
+		
+		viewer.addEventListener('click', e => {
+			if (e.target === viewer || e.target.matches('.img-viewer-bg') || e.target.matches('.img-viewer-close')) {
+				close();
+			}
+		});
+		
+		document.addEventListener('keydown', e => {
+			if (e.key === 'Escape' && viewer.classList.contains('active')) close();
+		});
+		
+		// 缩放功能
+		viewer.addEventListener('wheel', e => {
+			if (e.ctrlKey) {
+				e.preventDefault();
+				const delta = e.deltaY > 0 ? 0.9 : 1.1;
+				scale = Math.max(0.1, Math.min(5, scale * delta));
+				updateTransform();
+			}
+		});
+		
+		// 拖拽功能
+		viewer.querySelector('.img-viewer-img').addEventListener('mousedown', e => {
+			if (e.button === 0) {
+				isDragging = true;
+				startX = e.clientX - x;
+				startY = e.clientY - y;
+				e.preventDefault();
+			}
+		});
+		
+		document.addEventListener('mousemove', e => {
+			if (isDragging) {
+				x = e.clientX - startX;
+				y = e.clientY - startY;
+				updateTransform();
+			}
+		});
+		
+		document.addEventListener('mouseup', () => {
+			isDragging = false;
+		});
+		
+		// 双击重置
+		viewer.querySelector('.img-viewer-img').addEventListener('dblclick', reset);
+	})();
+	</script>
+
 	<!-- Right: switch to 最新文章 on single -->
 	<aside class="right-sidebar">
 		<div class="card profile-card">
