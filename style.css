@@ -5,7 +5,7 @@ Author: Laumy
 Author URI: https://www.laumy.tech/
 Email: laumy0929@gmail.com
 Description: 一个简洁、响应式的WordPress主题，具有固定顶部导航栏、左侧分类专栏、宽幅内容区域和右侧个人资料+最近更新。支持深色模式切换、文章目录、分类展开等功能。
-Version: 1.0.0
+Version: 1.0.1
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.4
@@ -396,9 +396,45 @@ body.dark .header-link { color: var(--color-text); }
 }
 @media (max-width: 992px) {
 	.main-container { grid-template-columns: 1fr; }
-	.left-sidebar, .right-sidebar { position: static; }
+	
+	/* 平板设备：禁用侧边栏滚动 */
+	.left-sidebar, .right-sidebar { 
+		position: static !important; 
+		overflow: visible !important;
+		max-height: none !important;
+		height: auto !important;
+	}
+	
+	/* 禁用滚动相关属性 */
+	.left-sidebar {
+		-webkit-overflow-scrolling: auto !important;
+		scrollbar-width: none !important;
+		-ms-overflow-style: none !important;
+		scroll-behavior: auto !important;
+		overscroll-behavior: none !important;
+	}
+	
+	/* 隐藏滚动条 */
+	.left-sidebar::-webkit-scrollbar {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
 }
+
 @media (max-width: 768px) {
+	/* 移动设备：完全禁用左侧边栏滚动 */
+	.left-sidebar {
+		top: auto !important;
+	}
+	
+	/* 确保TOC卡片也不会产生滚动 */
+	.left-sidebar .toc-card {
+		max-height: none !important;
+		overflow: visible !important;
+		height: auto !important;
+	}
+	
 	/* 移动设备：隐藏标题和"支持与合作"链接，保留搜索框、背景切换和首页按钮 */
 	.site-title { display: none; }
 	.header-link[href*="%e8%81%94%e7%b3%bb%e6%88%91"] { display: none; } /* 隐藏"支持与合作"链接 */
