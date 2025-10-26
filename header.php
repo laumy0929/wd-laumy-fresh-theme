@@ -22,7 +22,7 @@
 		</div>
 		<div class="header-right">
 			<button class="theme-toggle" aria-label="切换主题"><span class="toggle-icon"></span></button>
-			<a class="header-link" href="<?php echo esc_url(home_url('/%e8%81%94%e7%b3%bb%e6%88%91/')); ?>">支持与合作</a>
+			<a class="header-link" href="<?php echo esc_url(home_url('/%e8%81%94%e7%b3%bb%e6%88%91/')); ?>">联系我</a>
 		</div>
 	</div>
 </header>

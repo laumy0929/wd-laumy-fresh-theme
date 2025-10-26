@@ -437,7 +437,7 @@ body.dark .header-link { color: var(--color-text); }
 	
 	/* 移动设备：隐藏标题和"支持与合作"链接，保留搜索框、背景切换和首页按钮 */
 	.site-title { display: none; }
-	.header-link[href*="%e8%81%94%e7%b3%bb%e6%88%91"] { display: none; } /* 隐藏"支持与合作"链接 */
+	.header-link[href*="%e8%81%94%e7%b3%bb%e6%88%91"] { display: none; } /* 隐藏"联系我"链接 */
 	
 	/* 调整header布局为三列布局 */
 	.header-inner {
