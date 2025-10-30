@@ -92,8 +92,15 @@
 			</div>
 			<div class="single-body">
 				<?php
-				// inject anchors to headings
+				// Preserve dollar signs in code/pre blocks
 				$raw = get_the_content();
+				$raw = preg_replace_callback('/<(pre|code)([^>]*)>([\s\S]*?)<\/\\1>/i', function($mm){
+					$inner = $mm[3];
+					$inner = str_replace('$', '&#36;', $inner);
+					return '<'.$mm[1].$mm[2].'>'.$inner.'</'.$mm[1].'>';
+				}, $raw);
+
+				// inject anchors to headings
 				$idx = -1;
 				$raw = preg_replace_callback('/<h([1-6])([^>]*)>(.*?)<\/h[1-6]>/i', function($mm) use (&$idx){
 					$idx++;
