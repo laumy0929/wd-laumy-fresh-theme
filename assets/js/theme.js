@@ -68,14 +68,23 @@
 
 			var tocArrows = [];
 			var scrollHandler;
-			
+
 			// add arrows and collapse ability
 			var tocItems = tocRoot.querySelectorAll('.toc-item');
 			tocItems.forEach(function(li){
 				var children = li.querySelector(':scope > .toc-children');
 				var link = li.querySelector(':scope > .toc-link');
 				if(children && link){
-					li.classList.add('has-children','expanded');
+					li.classList.add('has-children');
+
+					// 默认只展开到第二级（H2和H3），更深层级默认折叠
+					var isLevel2 = li.classList.contains('toc-level-2');
+					var isLevel3 = li.classList.contains('toc-level-3');
+					if(isLevel2 || isLevel3){
+						li.classList.add('expanded');
+					}
+					// level 4+ 默认折叠
+
 					var arrow = document.createElement('span');
 					arrow.className = 'toc-arrow';
 					arrow.setAttribute('aria-hidden','true');

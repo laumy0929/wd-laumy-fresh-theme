@@ -17,7 +17,7 @@ Tags: blog, custom-background, custom-colors, custom-logo, custom-menu, editor-s
 
 :root {
 	--header-height: 56px;
-	--sidebar-left-width: 260px;
+	--sidebar-left-width: 340px;
 	--sidebar-right-width: 300px;
 	--container-max-width: 1800px;
 	--gap: 14px;
@@ -298,7 +298,21 @@ body.dark .header-link { color: var(--color-text); }
 }
 .toc-list, .toc-children { list-style: none; margin: 8px 0 12px 0; padding: 0 16px; }
 .toc-item { margin: 4px 0; }
-.toc-link { text-decoration: none; color: #333; }
+.toc-link {
+	text-decoration: none;
+	color: #333;
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+	min-width: 0; /* allow ellipsis inside flex */
+}
+.toc-link .toc-text{
+	display: block;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap; /* prevent wrapping */
+}
 
 /* 多级目录样式 */
 .toc-children { margin-left: 12px; border-left: 2px solid #f2f2f2; padding-left: 10px; }
@@ -392,7 +406,7 @@ body.dark .header-link { color: var(--color-text); }
 
 /* Responsive */
 @media (max-width: 1200px) {
-	:root { --sidebar-left-width: 200px; --sidebar-right-width: 220px; }
+	:root { --sidebar-left-width: 280px; --sidebar-right-width: 220px; }
 }
 @media (max-width: 992px) {
 	.main-container { grid-template-columns: 1fr; }

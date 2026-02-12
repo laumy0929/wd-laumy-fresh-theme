@@ -12,8 +12,11 @@ add_action('after_setup_theme', function () {
 // Enqueue assets
 add_action('wp_enqueue_scripts', function () {
 	$theme_uri = get_template_directory_uri();
-	wp_enqueue_style('laumy-fresh-style', $theme_uri . '/style.css', [], wp_get_theme()->get('Version'));
-	wp_enqueue_script('laumy-fresh-theme', $theme_uri . '/assets/js/theme.js', [], wp_get_theme()->get('Version'), true);
+	$theme_dir = get_template_directory();
+	$style_ver = @filemtime($theme_dir . '/style.css') ?: wp_get_theme()->get('Version');
+	$js_ver    = @filemtime($theme_dir . '/assets/js/theme.js') ?: wp_get_theme()->get('Version');
+	wp_enqueue_style('laumy-fresh-style', $theme_uri . '/style.css', [], $style_ver);
+	wp_enqueue_script('laumy-fresh-theme', $theme_uri . '/assets/js/theme.js', [], $js_ver, true);
 	wp_localize_script('laumy-fresh-theme', 'LaumyFresh', [
 		'ajaxUrl' => admin_url('admin-ajax.php'),
 	]);

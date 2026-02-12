@@ -43,15 +43,17 @@
 				}
 				if ($tree) {
 					if (!function_exists('laumy_render_toc_nodes')) {
-						function laumy_render_toc_nodes($nodes, $prefix = '', $isRoot = true) {
+						function laumy_render_toc_nodes($nodes, $prefix = '', $isRoot = true, $level = 2) {
 							echo $isRoot ? '<ul class="toc-list">' : '<ul class="toc-children">';
 							$idx = 1;
 							foreach ($nodes as $n) {
 								$number = $prefix === '' ? (string)$idx : $prefix . '.' . $idx;
-								echo '<li class="toc-item">';
-								echo '<a class="toc-link" href="#'.$n['anchor'].'"><span class="toc-num">'.$number.'.</span>'.esc_html($n['title']).'</a>';
+								$level_class = 'toc-level-' . $level;
+								echo '<li class="toc-item ' . $level_class . '">';
+								$title_attr = esc_attr($n['title']);
+								echo '<a class="toc-link" href="#'.$n['anchor'].'" title="'.$title_attr.'"><span class="toc-num">'.$number.'.</span><span class="toc-text">'.esc_html($n['title']).'</span></a>';
 								if (!empty($n['children'])) {
-									laumy_render_toc_nodes($n['children'], $number, false);
+									laumy_render_toc_nodes($n['children'], $number, false, $level + 1);
 								}
 								echo '</li>';
 								$idx++;
