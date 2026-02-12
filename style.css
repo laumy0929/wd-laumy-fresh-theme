@@ -354,7 +354,34 @@ body.dark .header-link { color: var(--color-text); }
 	margin: 1rem auto;
 	border-radius: 6px;
 }
-.single-article table { max-width: 100%; display: block; overflow: auto; border-collapse: collapse; }
+.single-article table {
+	border-collapse: collapse;
+	border: 1px solid var(--color-border);
+	margin: 1rem 0;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+.single-article table th,
+.single-article table td {
+	border: 1px solid var(--color-border);
+	padding: 8px 12px;
+	text-align: left;
+}
+.single-article table th {
+	background-color: #f5f5f5;
+	font-weight: 700;
+}
+body.dark .single-article table {
+	border-color: var(--color-border);
+}
+body.dark .single-article table th,
+body.dark .single-article table td {
+	border-color: var(--color-border);
+}
+body.dark .single-article table th {
+	background-color: #2a2f34;
+}
 .single-article pre, .single-article code { max-width: 100%; display: block; overflow: auto; }
 .single-article p, .single-article li { word-wrap: break-word; overflow-wrap: break-word; }
 
