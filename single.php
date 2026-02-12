@@ -236,6 +236,12 @@
 				</div>
 			</div>
 		</div>
+		<div class="card wechat-card">
+			<div class="card-body" style="text-align: center; padding: 16px;">
+				<img class="wechat-qrcode" src="<?php echo esc_url(get_theme_mod('wechat_qrcode', get_template_directory_uri() . '/assets/images/weixingongzhonghao.jpg')); ?>" alt="微信公众号二维码" style="width: 100%; max-width: 200px; height: auto; display: block; margin: 0 auto 12px; border-radius: 8px;" />
+				<p style="margin: 0; color: var(--color-muted); font-size: 14px;">获取更多资讯，欢迎关注公众号</p>
+			</div>
+		</div>
 		<div class="card">
 			<div class="card-header">最新文章</div>
 			<div class="card-body">

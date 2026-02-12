@@ -88,6 +88,7 @@ add_action('customize_register', function($wp_customize){
 		['profile_job','职业','打工人'],
 		['profile_desc','描述','为学日益，为道日损'],
 		['profile_image','头像', get_template_directory_uri() . '/assets/images/default-profile.svg'],
+		['wechat_qrcode','微信公众号二维码', get_template_directory_uri() . '/assets/images/weixingongzhonghao.jpg'],
 	];
 	foreach ($fields as [$id,$label,$default]) {
 		$wp_customize->add_setting($id, ['default' => $default]);
@@ -95,7 +96,7 @@ add_action('customize_register', function($wp_customize){
 			'label' => $label,
 			'section' => 'laumy_profile',
 			'settings' => $id,
-			'type' => $id === 'profile_image' ? 'url' : 'text',
+			'type' => ($id === 'profile_image' || $id === 'wechat_qrcode') ? 'url' : 'text',
 		]);
 	}
 });
